@@ -32,12 +32,9 @@ class PostSerializer(serializers.ModelSerializer):
         post = Post.objects.create(**validated_data)
         return post
 
-
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         representation['category'] = CategorySerializer(instance.category).data
         representation['author'] = instance.author.email
         representation['image'] = self.__get_image_url(instance)
         return representation
-
-
